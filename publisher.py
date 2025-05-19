@@ -22,7 +22,7 @@ class RabbitMQPublisher:
         )
         channel = pika.BlockingConnection(connection_parameters).channel()
         return channel
- 
+
     def send_message(self, body: dict):
         self.__channel.basic_publish(
             exchange= self.__exchange,
@@ -34,4 +34,4 @@ class RabbitMQPublisher:
         )
 
 rabbit_mq_publisher = RabbitMQPublisher()
-rabbit_mq_publisher.send_message({"msg" : "Ola, mundo!"})
+rabbit_mq_publisher.send_message({"msg" : "Hello, world!"})

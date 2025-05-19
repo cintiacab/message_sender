@@ -1,10 +1,5 @@
-import json
 import pika
-
-def rabbitmq_callbak(ch, method, properties, body):
-    msg = body.decode("utf-8")
-    format_msg = json.loads(msg)
-    print(format_msg["msg"])
+from .callback import rabbitmq_callbak
 
 class RabbitMQConsumer:
     def __init__(self) -> None:
@@ -32,7 +27,7 @@ class RabbitMQConsumer:
         channel.basic_consume(
             queue= self.__queue,
             auto_ack= True,
-            on_message_callback=rabbitmq_callbak 
+            on_message_callback=rabbitmq_callbak
         )
         return channel
 
