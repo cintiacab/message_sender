@@ -1,5 +1,5 @@
-import pika
 import json
+import pika
 
 class RabbitMQPublisher:
     def __init__(self) -> None:
@@ -15,20 +15,20 @@ class RabbitMQPublisher:
         connection_parameters = pika.ConnectionParameters(
             host= self.__host,
             port= self.__port,
-            credentials=pika.PlainCredentials(
+            credentials= pika.PlainCredentials(
                 username= self.__username,
                 password= self.__password
             )
         )
         channel = pika.BlockingConnection(connection_parameters).channel()
         return channel
-    
+ 
     def send_message(self, body: dict):
         self.__channel.basic_publish(
             exchange= self.__exchange,
             routing_key= self.__routing_key,
             body= json.dumps(body),
-            properties=pika.BasicProperties(
+            properties= pika.BasicProperties(
                 delivery_mode= 2
             )
         )
